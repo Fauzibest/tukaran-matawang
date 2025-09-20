@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tukaran Matawang Manual</title>
+  <style>
+    :root {
+      --bg-light: #f0f0f0;
+      --bg-dark: #121212;
+      --text-light: #000;
+      --text-dark: #fff;
+      --card-light: #fff;
+      --card-dark: #1e1e1e;
+      --primary: #007bff;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: all 0.3s ease;
+    }
+
+    .dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .container {
+      background-color: var(--card-light);
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .dark-mode .container {
+      background-color: var(--card-dark);
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .toggle-theme {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 10px; }
+      .container { padding: 15px; }
+      input, button { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toggle-theme">
+    <button onclick="toggleTheme()">Tukar Tema Gelap/Cerah</button>
+  </div>
+
+  <div class="container">
+    <h2>Pengiraan Tukaran Matawang</h2>
+    <label>Nilai Tukaran (Contoh: 1000000 IDR = 260 MYR)</label>
+    <input type="number" id="nilaiAsing" placeholder="Masukkan nilai matawang asing (IDR)">
+    <input type="number" id="nilaiMYR" placeholder="Masukkan nilai tukaran dalam MYR">
+
+    <label>Harga Barang (dalam IDR)</label>
+    <input type="number" id="hargaBarang" placeholder="Masukkan harga barang dalam IDR">
+
+    <button onclick="kiraTukaran()">Kira dalam MYR</button>
+
+    <h3 id="hasil"></h3>
+  </div>
+
+  <script>
+    function kiraTukaran() {
+      const nilaiAsing = parseFloat(document.getElementById('nilaiAsing').value);
+      const nilaiMYR = parseFloat(document.getElementById('nilaiMYR').value);
+      const hargaBarang = parseFloat(document.getElementById('hargaBarang').value);
+
+      if (isNaN(nilaiAsing) || isNaN(nilaiMYR) || isNaN(hargaBarang)) {
+        document.getElementById('hasil').innerText = "Sila isi semua nilai dengan betul.";
+        return;
+      }
+
+      const kadarTukaran = nilaiMYR / nilaiAsing;
+      const jumlahMYR = hargaBarang * kadarTukaran;
+
+      document.getElementById('hasil').innerText = `Jumlah dalam MYR: RM ${jumlahMYR.toFixed(2)}`;
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html>
